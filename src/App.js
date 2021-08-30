@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import { Fragment } from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import GifProvider from './context/gifProvider';
 import './App.css';
 
+//pages
+import Home from './pages/Home';
+import SearchResults from './pages/SearchResults'
+import GifDetails from './pages/GifDetails';
+import SearchBar from './components/searchBar/searchBar';
+
+
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className="app-container">
+        <Router>
+          <SearchBar/>
+          <Switch>
+            <GifProvider>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/search/:keyword' component={SearchResults} />
+              <Route exact path='/gif/:id' component={GifDetails} />
+            </GifProvider>
+          </Switch>
+        </Router>
+      </div>
+
+    </Fragment>
   );
 }
 
